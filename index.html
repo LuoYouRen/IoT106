@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Visualize by TEMPLATED</title>
+		<title>Sous Vide Machine</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -18,55 +18,77 @@
 
 				<!-- Header -->
 					<header id="header">
-						<span class="avatar"><img src="images/avatar.jpg" alt="" /></span>
-						<h1>This is <strong>Visualize</strong>, a responsive site template designed by <a href="http://templated.co">TEMPLATED</a><br />
-						and released for free under the Creative Commons License.</h1>
+						<span class="avatar"><img src="images/nctu.jpg" alt="" /></span>
+						<h1>This is a website to control our <strong><a href="https://en.wikipedia.org/wiki/Sous-vide">Sous-vide</a> Machine</strong> in IoT class 2018. <br/>
+						Input temperature and time, then press "start cook" button to control Machine.</h1>
 						<ul class="icons">
-							<li><a href="#" class="icon style2 fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon style2 fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon style2 fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#" class="icon style2 fa-500px"><span class="label">500px</span></a></li>
-							<li><a href="#" class="icon style2 fa-envelope-o"><span class="label">Email</span></a></li>
+				
+								<li>temperature<input type="text" name="t" class="t"></li>
+								<li>time<input type="text" name="m" class="m"></li>
+								<li><b>on/off　</b><img onclick="turn_on_off()" class="on_off"src="images/icon/off.png"></li>
+								<li><b>start cook </b><button onclick="sendTalkback()" style="background-color:transparent; border-color:transparent"><img src="images/icon/chef.png"> </button></li>
 						</ul>
 					</header>
-
+					<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+					<script type="text/javascript">
+						on = false;
+						function turn_on_off(){
+							if(on){
+								on = false;
+								$(".on_off").attr("src","images/icon/off.png");
+							}else{
+								on = true;
+								$(".on_off").attr("src","images/icon/on.png");
+							}
+							
+						}
+						function sendTalkback(){
+							temp = $(".t").val();
+							if(isNaN(parseInt(temp)))temp = '60';
+							min = $(".m").val();
+							if(isNaN(parseInt(min)))min = '30';
+							isOn = on?'1':'0';
+							$.post('https://api.thingspeak.com/talkbacks/26438/commands.json?apikey=NRVZRZ01K526UOTI&command_string=t'+temp+'_m'+min+'_'+isOn);
+						}
+					</script>
+					
 				<!-- Main -->
 					<section id="main">
 
 						<!-- Thumbnails -->
 							<section class="thumbnails">
 								<div>
-									<a href="images/fulls/01.jpg">
-										<img src="images/thumbs/01.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+									<a href="images/fulls/chick.jpg">
+										<img src="images/fulls/chick.jpg" alt="" />
+										<h3>Chicken breast　　temperature:60/time:60</h3>
 									</a>
-									<a href="images/fulls/02.jpg">
-										<img src="images/thumbs/02.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
-									</a>
-								</div>
-								<div>
-									<a href="images/fulls/03.jpg">
-										<img src="images/thumbs/03.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
-									</a>
-									<a href="images/fulls/04.jpg">
-										<img src="images/thumbs/04.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
-									</a>
-									<a href="images/fulls/05.jpg">
-										<img src="images/thumbs/05.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+									<a href="images/fulls/egg.jpg">
+										<img src="images/fulls/egg.jpg" alt="" />
+										<h3>Onsen Tamago　　temperature:64/time:30</h3>
 									</a>
 								</div>
 								<div>
-									<a href="images/fulls/06.jpg">
-										<img src="images/thumbs/06.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+									<a href="images/fulls/f_steak_5.jpg">
+										<img src="images/fulls/f_steak_5.jpg" alt="" />
+										<h3>Prime Steak　　temperature:62/time:60</h3>
 									</a>
-									<a href="images/fulls/07.jpg">
-										<img src="images/thumbs/07.jpg" alt="" />
-										<h3>Lorem ipsum dolor sit amet</h3>
+									<a href="images/fulls/scallop.jpg">
+										<img src="images/fulls/scallop.jpg" alt="" />
+										<h3>Scallop　　temperature:72/time:30</h3>
+									</a>
+									<a href="images/fulls/duck.jpg">
+										<img src="images/fulls/duck.jpg" alt="" />
+										<h3>duck breast　　temperature:57/time:90</h3>
+									</a>
+								</div>
+								<div>
+									<a href="images/fulls/tai_chi.jpg">
+										<img src="images/fulls/tai_chi.jpg" alt="" />
+										<h3>Thai chicken fillet　　temperature:65/time:60</h3>
+									</a>
+									<a href="images/fulls/lovegg.jpg">
+										<img src="images/fulls/lovegg.jpg" alt="" />
+										<h3>soft boiled egg　　temperature:66/time:75</h3>
 									</a>
 								</div>
 							</section>
